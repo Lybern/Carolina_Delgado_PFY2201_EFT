@@ -10,12 +10,12 @@ export const OffersBanner = () => {
   return (
     <section className="py-4 my-2">
       <div className="container">
-        <div className="card bg-dark border-0 shadow-sm rounded-4 p-4 p-md-4 border-start border-info border-5 text-light">
+        <div className="card offers-card border-0 p-4 p-md-4 text-light">
           <div className="row align-items-center justify-content-between g-3">
             <div className="col-lg-8">
-              <h2 className="display-6 fw-bold text-info mb-2">🎮 Catálogo EriGamesStore</h2>
+              <h2 className="display-6 fw-bold text-info mb-2">🔥 Promociones y Ofertas Especiales</h2>
               <p className="lead mb-0 text-secondary">
-                Explora nuestra selección especial de videojuegos recomendados para todas las plataformas.
+                Aprovecha descuentos de temporada, preventas y beneficios exclusivos para la comunidad gamer.
               </p>
             </div>
             <div className="col-lg-4 text-lg-end">

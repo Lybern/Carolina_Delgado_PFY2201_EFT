@@ -49,15 +49,15 @@ export const ProductList = ({
         {/* Cabecera del Catálogo */}
         <div className="text-center mb-5">
           <span className="badge bg-info text-dark px-3 py-2 fw-bold text-uppercase mb-2">
-            <i className="bi bi-joystick me-1"></i> Catálogo Oficial
+            <i className="bi bi-controller me-1"></i> Catálogo Oficial
           </span>
-          <h2 className="display-5 fw-bold text-white mb-2">Títulos Disponibles</h2>
+          <h2 className="display-5 fw-bold text-white mb-2">Nuestro Catálogo</h2>
           <p className="text-muted lead">
-            Selecciona tu próxima aventura con entrega inmediata y garantía oficial.
+            Explora nuestra colección y selecciona tu próxima aventura con entrega inmediata y garantía oficial.
           </p>
           <div
             className="mx-auto"
-            style={{ width: '80px', height: '4px', background: 'var(--accent-blue)', borderRadius: '2px' }}
+            style={{ width: '80px', height: '4px', background: 'var(--accent-cyan)', borderRadius: '2px', boxShadow: '0 0 12px rgba(0, 240, 255, 0.6)' }}
           ></div>
         </div>
 
