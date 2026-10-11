@@ -47,8 +47,8 @@ Principales aspectos técnicos y funcionalidades implementadas en la plataforma:
    - Notificaciones contextuales flotantes (Toast) al añadir productos.
    - Persistencia de los datos en `localStorage` para conservar la compra si el usuario recarga la página.
 
-7. **Uso de Vite vs. Babel Standalone (Estándar Profesional):**
-   - El proyecto prescinde del uso de librerías CDN y compiladores pesados en el navegador (Babel Standalone). Todas las dependencias se gestionan localmente con `npm` y se compilan a producción con Vite en una carpeta `dist/`, asegurando un rendimiento óptimo.
+7. **Compilación y Empaquetado con Vite:**
+   - El proyecto gestiona todas las dependencias localmente con `npm` y compila a producción con Vite en una carpeta `dist/`, asegurando un rendimiento óptimo y carga rápida.
 
 ---
 
