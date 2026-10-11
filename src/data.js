@@ -1,0 +1,141 @@
+// ==========================================================================
+// CATÁLOGO DE PRODUCTOS ERIGAMESSTORE (DATASET)
+// Estructura de datos para la tienda de videojuegos online.
+// Cada objeto contiene identificador único, nombres, precios, imágenes,
+// descripciones, especificaciones y cantidad para gestión del carrito.
+// ==========================================================================
+
+export const data = [
+  {
+    id: 1,
+    nameProduct: "The Legend of Zelda: Tears of the Kingdom",
+    nombre: "The Legend of Zelda: Tears of the Kingdom",
+    categoria: "Aventura y Acción",
+    plataforma: "Nintendo Switch",
+    badge: "Más Vendido",
+    descripcion: "Explora los cielos y las profundidades de Hyrule en una inolvidable travesía llena de misterios, templos y libertad creativa total.",
+    precioNormal: 62990,
+    precioOferta: 54990,
+    price: 54990,
+    precio: 54990,
+    stock: 15,
+    quantity: 1,
+    img: "./img/zelda-totk.jpg",
+    imagen: "./img/zelda-totk.jpg",
+    especificaciones: {
+      medidas: "Tarjeta de Juego / Digital 18.2 GB",
+      material: "Nintendo EPD / Edición Oficial",
+      recomendacion: "Ideal para jugadores que disfrutan la exploración libre, puzzles ingeniosos y narrativa épica."
+    }
+  },
+  {
+    id: 2,
+    nameProduct: "Cyberpunk 2077: Phantom Liberty",
+    nombre: "Cyberpunk 2077: Phantom Liberty",
+    categoria: "Rol (RPG)",
+    plataforma: "PS5 / PC / Xbox",
+    badge: "Expansión Top",
+    descripcion: "Sumérgete en el peligroso distrito de Dogtown en Night City con Keanu Reeves e Idris Elba en un thriller de espionaje futurista de alto calibre.",
+    precioNormal: 59990,
+    precioOferta: 49990,
+    price: 49990,
+    precio: 49990,
+    stock: 20,
+    quantity: 1,
+    img: "./img/cyberpunk-2077.jpg",
+    imagen: "./img/cyberpunk-2077.jpg",
+    especificaciones: {
+      medidas: "Descarga Digital 70 GB",
+      material: "CD PROJEKT RED / Edición Completa",
+      recomendacion: "Recomendado para fanáticos de los mundos abiertos futuristas, tiroteos tácticos y tramas maduras."
+    }
+  },
+  {
+    id: 3,
+    nameProduct: "Super Mario Bros. Wonder",
+    nombre: "Super Mario Bros. Wonder",
+    categoria: "Plataformas",
+    plataforma: "Nintendo Switch",
+    badge: "Novedad",
+    descripcion: "Disfruta de la magia clásica de plataformas con asombrosos efectos Maravilla, nuevos potenciadores y modo multijugador cooperativo lleno de diversión.",
+    precioNormal: 52990,
+    precioOferta: 44990,
+    price: 44990,
+    precio: 44990,
+    stock: 18,
+    quantity: 1,
+    img: "./img/mario-wonder.jpg",
+    imagen: "./img/mario-wonder.jpg",
+    especificaciones: {
+      medidas: "Tarjeta de Juego / Digital 4.5 GB",
+      material: "Nintendo / Modo Cooperativo 4 Jugadores",
+      recomendacion: "Perfecto para jugar en familia, con amigos o disfrutar de la creatividad pura de plataformas 2D."
+    }
+  },
+  {
+    id: 4,
+    nameProduct: "EA Sports FC 24",
+    nombre: "EA Sports FC 24",
+    categoria: "Deportes",
+    plataforma: "PS5 / Xbox / PC",
+    badge: "Éxito Mundial",
+    descripcion: "Vive el realismo definitivo del fútbol mundial con tecnología HyperMotionV, PlayStyles optimizados por Opta y los modos Ultimate Team y Carrera.",
+    precioNormal: 49990,
+    precioOferta: 39990,
+    price: 39990,
+    precio: 39990,
+    stock: 25,
+    quantity: 1,
+    img: "./img/fc24.jpg",
+    imagen: "./img/fc24.jpg",
+    especificaciones: {
+      medidas: "Disco Blu-Ray / Digital 55 GB",
+      material: "EA Sports / Motor Frostbite",
+      recomendacion: "Imprescindible para los apasionados del fútbol competitivo online y carreras como director técnico."
+    }
+  },
+  {
+    id: 5,
+    nameProduct: "Resident Evil 4 Remake",
+    nombre: "Resident Evil 4 Remake",
+    categoria: "Survival Horror",
+    plataforma: "PS5 / PS4 / PC",
+    badge: "Imperdible",
+    descripcion: "Sobrevive a una pesadilla biológica en un recóndito pueblo europeo con gráficos hiperrealistas RE Engine, combates viscerales y tensión constante.",
+    precioNormal: 54990,
+    precioOferta: 42990,
+    price: 42990,
+    precio: 42990,
+    stock: 12,
+    quantity: 1,
+    img: "./img/resident-evil-4.jpg",
+    imagen: "./img/resident-evil-4.jpg",
+    especificaciones: {
+      medidas: "Disco Blu-Ray / Digital 68 GB",
+      material: "Capcom / RE Engine",
+      recomendacion: "Ideal para los amantes del terror de supervivencia, gestión de recursos y acción cinematográfica."
+    }
+  },
+  {
+    id: 6,
+    nameProduct: "Final Fantasy VII Rebirth",
+    nombre: "Final Fantasy VII Rebirth",
+    categoria: "Rol (RPG)",
+    plataforma: "PlayStation 5",
+    badge: "Aclamado",
+    descripcion: "La inolvidable odisea de Cloud, Tifa y Aerith continúa fuera de Midgar a través de un vasto mundo abierto con combates cinemáticos electrizantes.",
+    precioNormal: 69990,
+    precioOferta: 59990,
+    price: 59990,
+    precio: 59990,
+    stock: 10,
+    quantity: 1,
+    img: "./img/ffvii-rebirth.jpg",
+    imagen: "./img/ffvii-rebirth.jpg",
+    especificaciones: {
+      medidas: "2 Discos Blu-Ray Ultra HD / 145 GB",
+      material: "Square Enix / Exclusivo PS5",
+      recomendacion: "Una obra maestra para fanáticos de los JRPG con combates vertiginosos y una historia legendaria."
+    }
+  }
+];
