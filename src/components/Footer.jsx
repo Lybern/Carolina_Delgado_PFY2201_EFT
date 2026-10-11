@@ -16,7 +16,7 @@ export const Footer = () => {
               <span className="brand-text fs-5">EriGamesStore</span>
             </div>
             <p className="text-muted small mb-3">
-              Plataforma eCommerce gamer desarrollada como Evaluación Final Transversal (EFT) para la asignatura <strong>Desarrollo Frontend I (PFY2201)</strong> en <strong>Duoc UC</strong>.
+              Tu tienda online especializada en videojuegos originales, consolas y accesorios gamer con los mejores precios y despacho a todo Chile.
             </p>
             <p className="text-secondary small mb-0">
               Desarrollado con ❤️ por <strong>Carolina Delgado</strong>.
@@ -55,7 +55,7 @@ export const Footer = () => {
 
         <div className="d-flex flex-column flex-md-row justify-content-between align-items-center text-muted small gap-2">
           <span>&copy; 2026 EriGamesStore (EGS). Todos los derechos reservados.</span>
-          <span>Duoc UC • Escuela de Informática y Telecomunicaciones</span>
+          <span>Pasión por los videojuegos • Compra 100% segura</span>
         </div>
       </div>
     </footer>

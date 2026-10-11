@@ -170,7 +170,7 @@ export const Header = ({
 
               <li className="nav-item">
                 <a className="nav-link nav-link-gamer" href="#destacados">
-                  <i className="bi bi-fire me-1 text-warning"></i> Ofertas
+                  <i className="bi bi-tag-fill me-1" style={{ color: '#fb923c' }}></i> Ofertas
                 </a>
               </li>
               <li className="nav-item">
