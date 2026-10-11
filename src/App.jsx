@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
+import './App.css';
 import { Header } from './components/Header';
-import { HeroBanner } from './components/HeroBanner';
+import { Carousel } from './components/Carousel';
+import { OffersBanner } from './components/OffersBanner';
 import { ProductList } from './components/ProductList';
 import { ProductDetailModal } from './components/ProductDetailModal';
+import { Services } from './components/Services';
 import { ContactForm } from './components/ContactForm';
 import { Footer } from './components/Footer';
 import { ToastNotification } from './components/ToastNotification';
@@ -10,54 +13,78 @@ import { ScrollToTop } from './components/ScrollToTop';
 import { getProductos } from './services/productService';
 
 /**
- * Componente raíz de EriGamesStore (EGS) - Evaluación Final Transversal (EFT).
- * Orquesta el estado global de la SPA:
- * - Catálogo asíncrono con useEffect y estados de carga / error / éxito.
- * - Carrito de compras con persistencia automática en localStorage.
- * - Modal dinámico de especificaciones técnicas.
- * - Notificaciones flotantes contextuales (Toast).
- * - Búsqueda reactiva y filtrado multicriterio.
+ * Componente raíz de la aplicación EriGamesStore (EGS).
+ * Gestiona el estado global del catálogo, carrito de compras con persistencia en localStorage,
+ * efectos secundarios asíncronos con useEffect, renderizado condicional y orquestación
+ * centralizada de componentes y modal.
+ *
+ * Estructura y modularización idéntica a Carolina_Delgado_PFY2201_S7-main.
+ *
+ * @component
+ * @returns {JSX.Element} Aplicación completa renderizada.
  */
 function App() {
-  // 1. Estados para carga asíncrona del catálogo de videojuegos
+  // ==========================================================================
+  // 1. ESTADOS PARA CARGA DINÁMICA DE PRODUCTOS (SEMANA 8)
+  // ==========================================================================
+  // Catálogo dinámico de productos traídos desde la API / backend o fallback
   const [productos, setProductos] = useState([]);
+
+  // Estado booleano de carga para renderizado condicional del Spinner
   const [cargando, setCargando] = useState(true);
+
+  // Estado para capturar mensajes de error en caso de fallo de red
   const [error, setError] = useState(null);
+
+  // Estado centralizado para el producto visualizado en la ventana Modal
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
 
-  // 2. Estados del carrito de compras con persistencia en localStorage
+  // ==========================================================================
+  // 2. ESTADOS DEL CARRITO DE COMPRAS Y BÚSQUEDA
+  // ==========================================================================
+  // Lista de productos en el carrito con persistencia en localStorage
   const [allProducts, setAllProducts] = useState(() => {
     try {
-      const savedCart = localStorage.getItem('egs_cart');
+      const savedCart = localStorage.getItem('erigames_cart');
       return savedCart ? JSON.parse(savedCart) : [];
-    } catch {
+    } catch (err) {
+      console.error('Error al inicializar el carrito desde localStorage:', err);
       return [];
     }
   });
 
+  // Monto total acumulado en $ CLP con persistencia
   const [total, setTotal] = useState(() => {
     try {
-      const savedTotal = localStorage.getItem('egs_cart_total');
+      const savedTotal = localStorage.getItem('erigames_cart_total');
       return savedTotal ? Number(savedTotal) : 0;
     } catch {
       return 0;
     }
   });
 
+  // Cantidad total de unidades añadidas al carrito con persistencia
   const [countProducts, setCountProducts] = useState(() => {
     try {
-      const savedCount = localStorage.getItem('egs_cart_count');
+      const savedCount = localStorage.getItem('erigames_cart_count');
       return savedCount ? Number(savedCount) : 0;
     } catch {
       return 0;
     }
   });
 
-  // 3. Estados de búsqueda y notificación contextual Toast
+  // Estado para el buscador reactivo en tiempo real
   const [searchTerm, setSearchTerm] = useState('');
+
+  // Notificación flotante Toast al añadir producto
   const [toastProduct, setToastProduct] = useState(null);
 
-  // Función de reintento de carga
+  // ==========================================================================
+  // 3. EFECTOS SECUNDARIOS (useEffect)
+  // ==========================================================================
+  /**
+   * Permite reintentar manualmente la carga de productos si ocurrió un error.
+   */
   const reintentarCarga = () => {
     setCargando(true);
     setError(null);
@@ -72,7 +99,7 @@ function App() {
       });
   };
 
-  // Carga inicial del catálogo mediante useEffect
+  // Carga inicial de datos al montar la aplicación
   useEffect(() => {
     let isMounted = true;
     getProductos()
@@ -84,7 +111,7 @@ function App() {
       })
       .catch((err) => {
         if (isMounted) {
-          setError(err.message || 'Error al cargar catálogo gamer.');
+          setError(err.message || 'Error al conectar con el servidor.');
           setCargando(false);
         }
       });
@@ -94,26 +121,32 @@ function App() {
     };
   }, []);
 
-  // Sincronización continua de persistencia en localStorage
+  // Sincronización continua de la persistencia en localStorage
   useEffect(() => {
     try {
-      localStorage.setItem('egs_cart', JSON.stringify(allProducts));
-      localStorage.setItem('egs_cart_total', total.toString());
-      localStorage.setItem('egs_cart_count', countProducts.toString());
+      localStorage.setItem('erigames_cart', JSON.stringify(allProducts));
+      localStorage.setItem('erigames_cart_total', total.toString());
+      localStorage.setItem('erigames_cart_count', countProducts.toString());
     } catch (err) {
-      console.error('Error al persistir en localStorage:', err);
+      console.error('Error al persistir el carrito en localStorage:', err);
     }
   }, [allProducts, total, countProducts]);
 
-  // Manejo de adición de productos al carrito
+  // ==========================================================================
+  // 4. FUNCIONES DE GESTIÓN DEL CARRITO
+  // ==========================================================================
+  /**
+   * Agrega un producto al carrito con inmutabilidad y cálculo de totales.
+   * @param {Object} product - Producto a agregar.
+   */
   const onAddProduct = (product) => {
-    // Activar Toast Notification
+    // Disparar notificación flotante Toast
     setToastProduct(null);
     setTimeout(() => setToastProduct(product), 60);
 
-    const precioUnitario = product.precio || product.price || 0;
+    const precioUnitario = product.precioOferta || product.price || product.precio || 0;
 
-    // Si ya existe en el carrito, se incrementa cantidad
+    // Si ya existe en el carrito, se incrementa la cantidad
     if (allProducts.find((item) => item.id === product.id)) {
       const updated = allProducts.map((item) =>
         item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
@@ -124,7 +157,7 @@ function App() {
       return;
     }
 
-    // Si es nuevo, se agrega con cantidad 1
+    // Si es nuevo en el carrito, se añade con cantidad 1
     setTotal(total + precioUnitario);
     setCountProducts(countProducts + 1);
     setAllProducts([
@@ -132,6 +165,7 @@ function App() {
       {
         ...product,
         quantity: 1,
+        price: precioUnitario,
         precio: precioUnitario,
       },
     ]);
@@ -139,7 +173,7 @@ function App() {
 
   return (
     <div className="d-flex flex-column min-vh-100 bg-dark text-light">
-      {/* 1. Encabezado con navegación, búsqueda reactiva y Carrito flotante */}
+      {/* 1. Encabezado con barra de navegación, buscador reactivo y carrito de compras */}
       <Header
         allProducts={allProducts}
         setAllProducts={setAllProducts}
@@ -153,10 +187,16 @@ function App() {
 
       {/* 2. Contenido Principal */}
       <main className="flex-grow-1">
-        {/* Banner Hero */}
-        <HeroBanner />
+        {/* Carrusel accesible con controles y rotación */}
+        <Carousel />
 
-        {/* Renderizado condicional: Carga con Spinner */}
+        {/* Banner de Bienvenida y Ofertas con renderizado condicional */}
+        <OffersBanner />
+
+        {/* ==================================================================
+            RENDERIZADO CONDICIONAL DE ESTADOS DE CARGA, ERROR Y CATÁLOGO
+            ================================================================== */}
+        {/* Caso A: Cargando datos (Spinner de Bootstrap) */}
         {cargando && (
           <section className="py-5 text-center" style={{ background: '#0a0f1d' }}>
             <div className="container py-5">
@@ -168,32 +208,39 @@ function App() {
                 <span className="visually-hidden">Cargando videojuegos...</span>
               </div>
               <h4 className="fw-bold text-white mt-3">Cargando catálogo EriGamesStore...</h4>
-              <p className="text-muted small">Consultando disponibilidad de títulos gamer...</p>
+              <p className="text-muted small">
+                Consultando disponibilidad de títulos con el backend...
+              </p>
             </div>
           </section>
         )}
 
-        {/* Renderizado condicional: Error de carga con botón de reintento */}
+        {/* Caso B: Error de conexión con botón interactivo de Reintento */}
         {error && (
           <section className="py-5" style={{ background: '#0a0f1d' }}>
             <div className="container py-4">
-              <div className="alert alert-danger text-center max-w-lg mx-auto p-4 rounded-4 shadow">
-                <i className="bi bi-exclamation-triangle-fill fs-1 d-block mb-2 text-danger"></i>
-                <h4 className="alert-heading fw-bold">No fue posible cargar el catálogo</h4>
-                <p className="text-secondary">{error}</p>
+              <div
+                className="alert alert-danger shadow-sm rounded-4 p-4 text-center max-w-lg mx-auto"
+                role="alert"
+              >
+                <div className="fs-1 mb-2">🎮</div>
+                <h4 className="alert-heading fw-bold">
+                  No fue posible cargar el catálogo de videojuegos
+                </h4>
+                <p className="mb-3 text-muted">{error}</p>
                 <button
                   type="button"
-                  className="btn btn-danger px-4 py-2 fw-bold"
+                  className="btn btn-danger px-4 py-2 fw-bold shadow-sm"
                   onClick={reintentarCarga}
                 >
-                  <i className="bi bi-arrow-clockwise me-1"></i> Reintentar carga
+                  🔄 Reintentar carga de videojuegos
                 </button>
               </div>
             </div>
           </section>
         )}
 
-        {/* Renderizado condicional: Catálogo interactivo de videojuegos */}
+        {/* Caso C: Carga exitosa (Catálogo dinámico de videojuegos) */}
         {!cargando && !error && (
           <ProductList
             productos={productos}
@@ -204,27 +251,30 @@ function App() {
           />
         )}
 
-        {/* Formulario de Contacto interactivo */}
+        {/* Sección de Servicios / Beneficios */}
+        <Services />
+
+        {/* Sección de Formulario de Contacto */}
         <ContactForm />
       </main>
 
-      {/* 3. Pie de página */}
+      {/* 3. Pie de página institucional */}
       <Footer />
 
-      {/* 4. Modal centralizado de especificaciones técnicas */}
+      {/* 4. MODAL CENTRALIZADO: Controlado por estado en App.jsx */}
       <ProductDetailModal
         product={productoSeleccionado}
         onClose={() => setProductoSeleccionado(null)}
         onAddToCart={onAddProduct}
       />
 
-      {/* 5. Notificación flotante Toast al agregar juego */}
+      {/* 5. Notificación visual flotante (Toast de Bootstrap) */}
       <ToastNotification
         product={toastProduct}
         onClose={() => setToastProduct(null)}
       />
 
-      {/* 6. Botón flotante para regresar arriba */}
+      {/* 6. Botón flotante para volver arriba suavemente */}
       <ScrollToTop />
     </div>
   );
