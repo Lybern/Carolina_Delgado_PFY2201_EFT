@@ -1,0 +1,546 @@
+/* ==========================================================================
+   APP.CSS - COMPONENTES Y UTILIDADES DE ERIGAMESSTORE
+   ========================================================================== */
+
+/* Navbar y Header */
+.navbar-custom {
+  background-color: rgba(10, 15, 29, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-subtle);
+  transition: all 0.3s ease;
+}
+
+.brand-logo-img {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 2px solid var(--accent-blue);
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+}
+
+.brand-text {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.45rem;
+  background: linear-gradient(135deg, #ffffff 30%, var(--accent-cyan) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ==========================================================================
+   CARRITO DE COMPRAS FLOTANTE (Adaptado de Felimiau con temática Gamer)
+   ========================================================================== */
+.container-icon {
+  position: relative;
+  user-select: none;
+}
+
+.container-cart-icon {
+  position: relative;
+  cursor: pointer;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container-cart-icon:hover {
+  background: rgba(59, 130, 246, 0.15);
+  border-color: var(--accent-blue);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+.icon-cart {
+  width: 24px;
+  height: 24px;
+  stroke: var(--accent-cyan);
+}
+
+.count-products {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: linear-gradient(135deg, var(--accent-red), #dc2626);
+  color: #ffffff;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 800;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.6);
+  border: 2px solid #0a0f1d;
+}
+
+/* Desplegable flotante del carrito */
+.container-cart-products {
+  position: absolute;
+  top: 54px;
+  right: 0;
+  background-color: #111a2e;
+  width: 380px;
+  z-index: 1050;
+  box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.8), 0 0 25px rgba(59, 130, 246, 0.25);
+  border-radius: 16px;
+  border: 1px solid var(--border-accent);
+  overflow: hidden;
+  animation: cartFadeIn 0.25s ease;
+}
+
+@keyframes cartFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.container-cart-products.hidden-cart {
+  display: none;
+}
+
+.cart-header {
+  background: #17223b;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-items-scroll {
+  max-height: 320px;
+  overflow-y: auto;
+  padding: 8px 12px;
+}
+
+.row-product {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  transition: background 0.2s;
+}
+
+.row-product:hover {
+  background: rgba(59, 130, 246, 0.08);
+}
+
+.cart-thumb-img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--border-subtle);
+}
+
+.cart-item-info {
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.cart-item-title {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+}
+
+.cart-item-price {
+  font-size: 0.82rem;
+  color: var(--accent-green);
+  font-weight: 700;
+}
+
+.cart-qty-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #0a0f1d;
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  padding: 2px 4px;
+}
+
+.btn-qty {
+  background: none;
+  border: none;
+  color: #e2e8f0;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0 4px;
+  transition: color 0.15s;
+}
+
+.btn-qty:hover {
+  color: var(--accent-cyan);
+}
+
+.cart-qty-display {
+  font-size: 0.82rem;
+  font-weight: 700;
+  min-width: 16px;
+  text-align: center;
+}
+
+.btn-delete-cart-item {
+  background: none;
+  border: none;
+  color: #ef4444;
+  cursor: pointer;
+  padding: 4px;
+  transition: transform 0.2s;
+}
+
+.btn-delete-cart-item:hover {
+  transform: scale(1.15);
+}
+
+.cart-footer {
+  padding: 16px;
+  background: #17223b;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.cart-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.cart-total-amount {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--accent-cyan);
+}
+
+.cart-empty-message {
+  text-align: center;
+  padding: 35px 20px;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   TARJETAS DE PRODUCTO GAMER (Cards)
+   ========================================================================== */
+.gamer-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.gamer-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--border-accent);
+  box-shadow: 0 12px 30px -5px rgba(0, 0, 0, 0.7), 0 0 20px rgba(59, 130, 246, 0.2);
+}
+
+.card-img-wrapper {
+  position: relative;
+  overflow: hidden;
+  height: 220px;
+  background: #0a0f1d;
+}
+
+.card-img-top-gamer {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.gamer-card:hover .card-img-top-gamer {
+  transform: scale(1.06);
+}
+
+.badge-platform {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(10, 15, 29, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-subtle);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  z-index: 2;
+}
+
+.badge-promo {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 20px;
+  z-index: 2;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.card-body-gamer {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-title-gamer {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.card-desc-gamer {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  flex-grow: 1;
+  margin-bottom: 14px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-price-gamer {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--accent-cyan);
+}
+
+.card-old-price {
+  font-size: 0.85rem;
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+/* Vista de Lista */
+.gamer-card-list {
+  display: flex;
+  flex-direction: row;
+  height: auto;
+}
+
+.gamer-card-list .card-img-wrapper {
+  width: 200px;
+  height: auto;
+  min-height: 160px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .gamer-card-list {
+    flex-direction: column;
+  }
+  .gamer-card-list .card-img-wrapper {
+    width: 100%;
+    height: 200px;
+  }
+  .container-cart-products {
+    width: 320px;
+    right: -40px;
+  }
+}
+
+/* ==========================================================================
+   MODAL DE DETALLES
+   ========================================================================== */
+.modal-dialog-custom {
+  z-index: 1060;
+}
+
+.modal-backdrop-custom {
+  z-index: 1055;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(6px);
+}
+
+.modal-content-gamer {
+  background-color: #111a2e;
+  border: 1px solid var(--border-accent);
+  border-radius: 20px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.9), 0 0 30px rgba(59, 130, 246, 0.25);
+}
+
+.modal-header-gamer {
+  background: #17223b;
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 16px 24px;
+}
+
+.modal-spec-box {
+  background: #0a0f1d;
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 14px;
+}
+
+/* ==========================================================================
+   TOAST NOTIFICATION
+   ========================================================================== */
+.toast-container-custom {
+  z-index: 1080;
+}
+
+.toast-gamer {
+  background-color: #111a2e !important;
+  border: 1px solid var(--accent-cyan) !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7), 0 0 15px rgba(0, 240, 255, 0.3) !important;
+  border-radius: 12px;
+}
+
+.toast-thumb-img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* ==========================================================================
+   FORMULARIO DE CONTACTO
+   ========================================================================== */
+.contact-card-gamer {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  padding: 35px;
+  box-shadow: var(--shadow-card);
+}
+
+.form-control-gamer {
+  background-color: #0a0f1d;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  border-radius: 10px;
+  padding: 12px 16px;
+  transition: all 0.2s;
+}
+
+.form-control-gamer:focus {
+  background-color: #0a0f1d;
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 0 0.25rem rgba(0, 240, 255, 0.25);
+  color: #ffffff;
+}
+
+.form-control-gamer::placeholder {
+  color: #64748b;
+}
+
+/* ==========================================================================
+   BOTONES Y ACCESORIOS GAMER
+   ========================================================================== */
+.btn-gamer-primary {
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-blue-hover));
+  color: #ffffff;
+  border: none;
+  font-weight: 700;
+  border-radius: 10px;
+  padding: 10px 20px;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+}
+
+.btn-gamer-primary:hover {
+  background: linear-gradient(135deg, var(--accent-blue-hover), #1d4ed8);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
+}
+
+.btn-gamer-cyan {
+  background: linear-gradient(135deg, #00f0ff, #00b4d8);
+  color: #0a0f1d;
+  border: none;
+  font-weight: 800;
+  border-radius: 10px;
+  padding: 10px 20px;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(0, 240, 255, 0.4);
+}
+
+.btn-gamer-cyan:hover {
+  background: linear-gradient(135deg, #38bdf8, #00f0ff);
+  color: #0a0f1d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 240, 255, 0.6);
+}
+
+.btn-pill-category {
+  border-radius: 50px;
+  padding: 8px 18px;
+  font-weight: 600;
+  font-size: 0.88rem;
+  transition: all 0.2s ease;
+  border: 1px solid var(--border-subtle);
+  background: #111a2e;
+  color: var(--text-secondary);
+}
+
+.btn-pill-category:hover {
+  background: #17223b;
+  color: var(--accent-cyan);
+  border-color: var(--border-accent);
+}
+
+.btn-pill-category.active {
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-blue-hover));
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+}
+
+/* Scroll to top */
+.btn-scroll-top {
+  position: fixed;
+  bottom: 25px;
+  left: 25px;
+  z-index: 1040;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #111a2e;
+  border: 1px solid var(--border-accent);
+  color: var(--accent-cyan);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-scroll-top:hover {
+  background: var(--accent-blue);
+  color: #ffffff;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+}
