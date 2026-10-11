@@ -1,6 +1,5 @@
 /**
- * Componente Services para destacar beneficios de la tienda.
- * Estructura idéntica al proyecto S7/S8 con 3 columnas de artículos informativos.
+ * Componente Services para destacar los beneficios y garantías de la tienda gamer.
  */
 export const Services = () => {
   return (

@@ -1,8 +1,6 @@
-# EriGamesStore (EGS) — Evaluación Final Transversal (EFT)
+# EriGamesStore (EGS)
 
-- **Asignatura:** Desarrollo Frontend I (PFY2201)
-- **Institución:** Duoc UC
-- **Estudiante:** Carolina Delgado
+- **Desarrollo:** Carolina Delgado
 - **Proyecto:** Tienda de Videojuegos Online (EriGamesStore)
 - **Tecnologías:** React 19, Vite, Bootstrap 5.3, Bootstrap Icons, JavaScript (ES6+), Express (Backend API)
 
@@ -10,15 +8,15 @@
 
 ## 1. Descripción del Proyecto
 
-EriGamesStore es una aplicación web para una tienda online de videojuegos. El proyecto corresponde a la Evaluación Final Transversal (EFT), tomando como base la tienda desarrollada en la Actividad Sumativa 2 (Semana 6) y evolucionando su arquitectura hacia una Single Page Application (SPA) modular construida con React y Vite.
+EriGamesStore es una aplicación web para una tienda online de videojuegos construida como una Single Page Application (SPA) modular con React y Vite, diseñada con estética gamer de alto contraste.
 
-La aplicación reemplaza la manipulación directa del DOM con plantillas manuales por el modelo declarativo de React, gestionando el ciclo de vida, la reactividad de la interfaz y la sincronización del catálogo mediante hooks nativos (`useState`, `useEffect`) y paso de propiedades (`props`).
+La aplicación utiliza el modelo declarativo de React, gestionando el ciclo de vida, la reactividad de la interfaz y la sincronización del catálogo mediante hooks nativos (`useState`, `useEffect`) y paso de propiedades (`props`).
 
 ---
 
-## 2. Requerimientos del Encargo y Cumplimiento
+## 2. Arquitectura y Características del Sistema
 
-De acuerdo con las instrucciones de la EFT y las indicaciones de la sesión sincrónica del docente:
+Principales aspectos técnicos y funcionalidades implementadas en la plataforma:
 
 1. **Estructura HTML, CSS y Bootstrap 5:**
    - Maquetación con etiquetas semánticas (`<header>`, `<nav>`, `<main>`, `<section>`, `<footer>`).
@@ -64,8 +62,7 @@ Carolina_Delgado_PFY2201_EFT/
 │   ├── app.js                     # Configuración de Express, CORS y endpoint /api/productos
 │   └── package.json               # Dependencias del backend
 ├── docs/                          # Documentación y capturas de evidencia
-│   ├── screenshots/
-│   └── screenshots_s8/
+│   └── screenshots/
 ├── public/                        # Recursos estáticos
 │   ├── data/
 │   │   └── productos.json         # Respaldo estático para fallback y GitHub Pages

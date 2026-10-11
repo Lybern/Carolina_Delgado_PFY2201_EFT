@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 /**
  * Notificación Toast flotante de adición exitosa al carrito de compras.
- * Diseñada según la pauta de Bootstrap 5 con temporizador de 3.2s.
+ * Muestra confirmación visual flotante con temporizador automático de 3.2s.
  */
 export const ToastNotification = ({ product, onClose }) => {
   useEffect(() => {

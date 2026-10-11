@@ -17,15 +17,12 @@ import { getProductos } from './services/productService';
  * Gestiona el estado global del catálogo, carrito de compras con persistencia en localStorage,
  * efectos secundarios asíncronos con useEffect, renderizado condicional y orquestación
  * centralizada de componentes y modal.
- *
- * Estructura y modularización idéntica a Carolina_Delgado_PFY2201_S7-main.
- *
  * @component
  * @returns {JSX.Element} Aplicación completa renderizada.
  */
 function App() {
   // ==========================================================================
-  // 1. ESTADOS PARA CARGA DINÁMICA DE PRODUCTOS (SEMANA 8)
+  // 1. ESTADOS PARA CARGA DINÁMICA DE PRODUCTOS
   // ==========================================================================
   // Catálogo dinámico de productos traídos desde la API / backend o fallback
   const [productos, setProductos] = useState([]);

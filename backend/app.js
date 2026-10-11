@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
   res.redirect('/api/productos');
 });
 
-// Ruta principal requerida por la actividad
+// Endpoint REST del catálogo de productos
 app.get('/api/productos', (req, res) => {
   res.status(200).json(productos);
 });

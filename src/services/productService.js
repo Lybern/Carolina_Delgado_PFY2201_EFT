@@ -1,16 +1,14 @@
 /**
  * ============================================================================
  * SERVICIO DE PRODUCTOS (API & BACKEND) - ERIGAMESSTORE
- * Evaluación Final Transversal (EFT) - Frontend I (PFY2201)
  * ============================================================================
- * Este módulo separa la lógica de acceso al backend / API REST de la vista,
- * cumpliendo con los estándares de arquitectura de la Semana 7 y 8.
+ * Este módulo desacopla la lógica de acceso a datos del catálogo de la vista.
  *
  * Estrategia de Carga:
  * 1. Intenta conectarse al backend local de Node/Express (http://localhost:3000/api/productos).
- * 2. Si el servidor backend está apagado o la app se encuentra desplegada en GitHub Pages,
- *    utiliza automáticamente el archivo estático /data/productos.json como respaldo.
- * 3. Incluye simulación de tiempo de respuesta para apreciar el Spinner de carga en la UI.
+ * 2. Si el servidor backend está apagado o no responde, utiliza automáticamente
+ *    el archivo estático /data/productos.json como respaldo transparente.
+ * 3. Incluye simulación de tiempo de respuesta para visualización del Spinner en la UI.
  */
 
 const BACKEND_API_URL = 'http://localhost:3000/api/productos';

@@ -1,8 +1,7 @@
 import { useState } from 'react';
 
 /**
- * Banner de bienvenida y ofertas especiales con renderizado condicional mediante useState.
- * Estructura idéntica al proyecto S7/S8.
+ * Banner de promociones y ofertas especiales con renderizado condicional mediante useState.
  */
 export const OffersBanner = () => {
   const [mostrarOfertas, setMostrarOfertas] = useState(false);

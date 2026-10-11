@@ -47,18 +47,14 @@ export const ProductList = ({
     <section id="catalogo" className="py-5">
       <div className="container">
         {/* Cabecera del Catálogo */}
-        <div className="text-center mb-5">
-          <span className="badge bg-info text-dark px-3 py-2 fw-bold text-uppercase mb-2">
-            <i className="bi bi-controller me-1"></i> Catálogo Oficial
-          </span>
-          <h2 className="display-5 fw-bold text-white mb-2">Nuestro Catálogo</h2>
-          <p className="text-muted lead">
-            Explora nuestra colección y selecciona tu próxima aventura con entrega inmediata y garantía oficial.
+        <div className="text-center mb-4 pb-2">
+          <div className="d-inline-flex align-items-center gap-3 px-4 py-3 rounded-pill catalog-official-badge">
+            <i className="bi bi-controller fs-3"></i>
+            <span className="fs-3 fw-bold text-uppercase">Catálogo Oficial</span>
+          </div>
+          <p className="text-muted lead mt-3 mb-0">
+            Selecciona tu próxima aventura con entrega inmediata y garantía oficial.
           </p>
-          <div
-            className="mx-auto"
-            style={{ width: '80px', height: '4px', background: 'var(--accent-cyan)', borderRadius: '2px', boxShadow: '0 0 12px rgba(0, 240, 255, 0.6)' }}
-          ></div>
         </div>
 
         {/* Barra de Controles: Filtros de Categorías y Selector de Vista */}

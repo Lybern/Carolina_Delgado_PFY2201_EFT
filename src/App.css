@@ -11,7 +11,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   1. Carrusel Accesible y Responsivo con Fondo Desenfoque Cinemático (S7/S8)
+   1. Carrusel Accesible y Responsivo con Fondo Desenfoque Cinemático
    -------------------------------------------------------------------------- */
 .carousel-item {
   position: relative;
@@ -638,6 +638,21 @@
   color: #0a0f1d;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0, 240, 255, 0.6);
+}
+
+.catalog-official-badge {
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.16), rgba(59, 130, 246, 0.28));
+  color: var(--accent-cyan);
+  border: 2px solid var(--accent-cyan);
+  box-shadow: 0 0 24px rgba(0, 240, 255, 0.35), inset 0 0 14px rgba(0, 240, 255, 0.12);
+  letter-spacing: 0.04em;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.catalog-official-badge:hover {
+  box-shadow: 0 0 35px rgba(0, 240, 255, 0.55), inset 0 0 20px rgba(0, 240, 255, 0.22);
+  transform: translateY(-2px);
 }
 
 .btn-pill-category {

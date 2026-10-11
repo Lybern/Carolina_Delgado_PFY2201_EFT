@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 
 /**
- * Componente Carousel animado y accesible (cumple pautas WCAG 2.1).
+ * Componente Carousel animado y accesible.
  * Implementa rotación automática cíclica con temporizador y botón de pausa/reanudación,
- * además de una capa ambiental con efecto desenfocado cinemático (idéntico a S7/S8).
+ * además de una capa ambiental con efecto desenfocado cinemático.
  * @component
  * @returns {JSX.Element} Carrusel de novedades interactivo.
  */
