@@ -9,9 +9,7 @@ export const Header = ({
   allProducts = [],
   setAllProducts,
   total = 0,
-  setTotal,
   countProducts = 0,
-  setCountProducts,
   searchTerm = '',
   setSearchTerm = () => {},
   categoriaSeleccionada = 'Todos',
@@ -56,46 +54,36 @@ export const Header = ({
     };
   }, []);
 
-  // Eliminar un producto individual del carrito
+  // Eliminar un producto individual del carrito (total y cantidad se recalculan automáticamente)
   const onDeleteProduct = (product) => {
-    const updated = allProducts.filter((item) => item.id !== product.id);
-    const precio = product.precio || product.price || 0;
-    setTotal(Math.max(0, total - precio * product.quantity));
-    setCountProducts(Math.max(0, countProducts - product.quantity));
-    setAllProducts(updated);
+    setAllProducts(allProducts.filter((item) => item.id !== product.id));
   };
 
-  // Incrementar cantidad
+  // Incrementar cantidad del producto
   const onIncreaseQuantity = (product) => {
-    const updated = allProducts.map((item) =>
-      item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+    setAllProducts(
+      allProducts.map((item) =>
+        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+      )
     );
-    const precio = product.precio || product.price || 0;
-    setTotal(total + precio);
-    setCountProducts(countProducts + 1);
-    setAllProducts(updated);
   };
 
-  // Decrementar cantidad
+  // Decrementar cantidad del producto o remover si llega a 0
   const onDecreaseQuantity = (product) => {
-    const precio = product.precio || product.price || 0;
     if (product.quantity > 1) {
-      const updated = allProducts.map((item) =>
-        item.id === product.id ? { ...item, quantity: item.quantity - 1 } : item
+      setAllProducts(
+        allProducts.map((item) =>
+          item.id === product.id ? { ...item, quantity: item.quantity - 1 } : item
+        )
       );
-      setTotal(Math.max(0, total - precio));
-      setCountProducts(Math.max(0, countProducts - 1));
-      setAllProducts(updated);
     } else {
       onDeleteProduct(product);
     }
   };
 
-  // Vaciar carrito
+  // Vaciar completamente el carrito
   const onCleanCart = () => {
     setAllProducts([]);
-    setTotal(0);
-    setCountProducts(0);
   };
 
   return (

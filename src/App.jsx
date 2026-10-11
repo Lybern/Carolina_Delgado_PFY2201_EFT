@@ -37,9 +37,10 @@ function App() {
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
 
   // ==========================================================================
-  // 2. ESTADOS DEL CARRITO DE COMPRAS Y BÚSQUEDA
   // ==========================================================================
-  // Lista de productos en el carrito con persistencia en localStorage
+  // 2. ESTADOS DEL CARRITO DE COMPRAS Y BÚSQUEDA (SINGLE SOURCE OF TRUTH)
+  // ==========================================================================
+  // Lista de productos en el carrito con persistencia en localStorage (única fuente de la verdad)
   const [allProducts, setAllProducts] = useState(() => {
     try {
       const savedCart = localStorage.getItem('erigames_cart');
@@ -50,25 +51,18 @@ function App() {
     }
   });
 
-  // Monto total acumulado en $ CLP con persistencia
-  const [total, setTotal] = useState(() => {
-    try {
-      const savedTotal = localStorage.getItem('erigames_cart_total');
-      return savedTotal ? Number(savedTotal) : 0;
-    } catch {
-      return 0;
-    }
-  });
+  // Cálculo puro de la cantidad total de unidades en el carrito (evita estados derivados y desincronizaciones)
+  const countProducts = allProducts.reduce(
+    (acc, item) => acc + (item.quantity || 1),
+    0
+  );
 
-  // Cantidad total de unidades añadidas al carrito con persistencia
-  const [countProducts, setCountProducts] = useState(() => {
-    try {
-      const savedCount = localStorage.getItem('erigames_cart_count');
-      return savedCount ? Number(savedCount) : 0;
-    } catch {
-      return 0;
-    }
-  });
+  // Cálculo puro del monto total acumulado en $ CLP directamente desde allProducts
+  const total = allProducts.reduce(
+    (acc, item) =>
+      acc + (item.precioOferta || item.precio || item.price || 0) * (item.quantity || 1),
+    0
+  );
 
   // Estado para el buscador reactivo en tiempo real
   const [searchTerm, setSearchTerm] = useState('');
@@ -83,12 +77,13 @@ function App() {
   // 3. EFECTOS SECUNDARIOS (useEffect)
   // ==========================================================================
   /**
-   * Permite reintentar manualmente la carga de productos si ocurrió un error.
+   * Permite reintentar manualmente la carga de productos si ocurrió un error,
+   * configurando timeout y reintentos según el entorno.
    */
   const reintentarCarga = () => {
     setCargando(true);
     setError(null);
-    getProductos()
+    getProductos({ timeoutMs: 3000, retries: 2, delaySimuladoMs: 400 })
       .then((data) => {
         setProductos(data);
         setCargando(false);
@@ -102,7 +97,7 @@ function App() {
   // Carga inicial de datos al montar la aplicación
   useEffect(() => {
     let isMounted = true;
-    getProductos()
+    getProductos({ timeoutMs: 2500, retries: 1, delaySimuladoMs: 400 })
       .then((data) => {
         if (isMounted) {
           setProductos(data);
@@ -136,7 +131,8 @@ function App() {
   // 4. FUNCIONES DE GESTIÓN DEL CARRITO
   // ==========================================================================
   /**
-   * Agrega un producto al carrito con inmutabilidad y cálculo de totales.
+   * Agrega un producto al carrito manteniendo inmutabilidad.
+   * El total y la cantidad se recalculan automáticamente mediante funciones puras.
    * @param {Object} product - Producto a agregar.
    */
   const onAddProduct = (product) => {
@@ -147,19 +143,16 @@ function App() {
     const precioUnitario = product.precioOferta || product.price || product.precio || 0;
 
     // Si ya existe en el carrito, se incrementa la cantidad
-    if (allProducts.find((item) => item.id === product.id)) {
-      const updated = allProducts.map((item) =>
-        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+    if (allProducts.some((item) => item.id === product.id)) {
+      setAllProducts(
+        allProducts.map((item) =>
+          item.id === product.id ? { ...item, quantity: (item.quantity || 1) + 1 } : item
+        )
       );
-      setTotal(total + precioUnitario);
-      setCountProducts(countProducts + 1);
-      setAllProducts(updated);
       return;
     }
 
     // Si es nuevo en el carrito, se añade con cantidad 1
-    setTotal(total + precioUnitario);
-    setCountProducts(countProducts + 1);
     setAllProducts([
       ...allProducts,
       {
@@ -178,9 +171,7 @@ function App() {
         allProducts={allProducts}
         setAllProducts={setAllProducts}
         total={total}
-        setTotal={setTotal}
         countProducts={countProducts}
-        setCountProducts={setCountProducts}
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
         categoriaSeleccionada={categoriaSeleccionada}
