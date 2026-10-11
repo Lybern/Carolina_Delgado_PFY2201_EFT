@@ -1,121 +1,154 @@
-# 🎮 EriGamesStore (EGS) — Evaluación Final Transversal (EFT)
+# EriGamesStore (EGS) — Evaluación Final Transversal (EFT)
 
-**Asignatura:** Desarrollo Frontend I (PFY2201)  
-**Institución:** Duoc UC — Escuela de Informática y Telecomunicaciones  
-**Estudiante:** Carolina Delgado  
-**Tecnologías:** React 19, Vite, Bootstrap 5.3, Bootstrap Icons, JavaScript (ES6+), CSS3  
-**Entrega:** Single Page Application (SPA) modularizada en componentes React.
-
----
-
-## 📌 1. Descripción del Proyecto
-
-**EriGamesStore (EGS)** es una plataforma eCommerce moderna y responsiva de venta de videojuegos y artículos gamer, diseñada con temática *Dark Gamer* de alto contraste.
-
-Evolucionando desde la versión inicial de la Semana 6 (JavaScript Vanilla y manipulación manual del DOM), esta versión para la **Evaluación Final Transversal (EFT)** fue refactorizada completamente a una **Single Page Application (SPA)** modular utilizando **React** y el empaquetador **Vite**, eliminando el uso de librerías en tiempo de ejecución en el navegador (*No Babel Standalone*), empaquetando dependencias localmente y optimizando el ciclo de vida de los componentes con Hooks nativos (`useState`, `useEffect`).
+- **Asignatura:** Desarrollo Frontend I (PFY2201)
+- **Institución:** Duoc UC
+- **Estudiante:** Carolina Delgado
+- **Proyecto:** Tienda de Videojuegos Online (EriGamesStore)
+- **Tecnologías:** React 19, Vite, Bootstrap 5.3, Bootstrap Icons, JavaScript (ES6+), Express (Backend API)
 
 ---
 
-## 🚀 2. Características y Funcionalidades Principales
+## 1. Descripción del Proyecto
 
-1. **Catálogo Dinámico de Videojuegos:**
-   - Carga asíncrona mediante `fetch` y `useEffect` desde `./data/productos.json`.
-   - Renderizado condicional con **Spinner de carga** y gestión amigable de errores con botón interactivo de reintento.
-2. **Filtrado Reactivo por Categorías:**
-   - Botones tipo *Nav-Pills* para alternar entre categorías (*Todos, Aventura y Acción, Rol (RPG), Plataformas, Deportes, Survival Horror*).
-3. **Búsqueda en Tiempo Real:**
-   - Barra de búsqueda reactiva en la cabecera que filtra instantáneamente por título, plataforma o descripción.
-4. **Selector Interactivo de Visualización:**
-   - Botones para alternar la visualización del catálogo entre formato de **Cuadrícula (Grid)** y **Lista (List)** mediante estado de React.
-5. **Carrito de Compras Flotante e Interactivo:**
-   - Desplegable integrado en el encabezado con contador dinámico de unidades (*badge*).
-   - Control granular de cantidades (`+` y `-`) con eliminación automática al llegar a cero.
-   - Eliminación de ítems individuales y botón de vaciado total.
-   - Cálculo del monto acumulado en tiempo real en pesos chilenos ($ CLP).
-   - **Persistencia en LocalStorage:** Sincronización continua de los productos, unidades y montos para conservar la sesión del usuario.
-6. **Modal de Ficha Técnica (`ProductDetailModal`):**
-   - Ventana modal accesible de Bootstrap que presenta carátula, sinopsis, especificaciones técnicas (género, idiomas, desarrollador, espacio) y comparativa de precio normal vs. oferta.
-7. **Notificación Flotante Toast (`ToastNotification`):**
-   - Notificación contextual que aparece automáticamente al agregar un título al carrito con cierre temporizado (3.2 segundos).
-8. **Formulario de Contacto Validado (`ContactForm`):**
-   - Formulario con campos controlados (`useState`), validación de campos obligatorios y formato de email, emitiendo alertas dinámicas de éxito o advertencia.
-9. **Botón Flotante Scroll to Top (`ScrollToTop`):**
-   - Botón interactivo para regresar suavemente al inicio tras desplazarse por el sitio.
+EriGamesStore es una aplicación web para una tienda online de videojuegos. El proyecto corresponde a la Evaluación Final Transversal (EFT), tomando como base la tienda desarrollada en la Actividad Sumativa 2 (Semana 6) y evolucionando su arquitectura hacia una Single Page Application (SPA) modular construida con React y Vite.
+
+La aplicación reemplaza la manipulación directa del DOM con plantillas manuales por el modelo declarativo de React, gestionando el ciclo de vida, la reactividad de la interfaz y la sincronización del catálogo mediante hooks nativos (`useState`, `useEffect`) y paso de propiedades (`props`).
 
 ---
 
-## 🧱 3. Arquitectura Modular de Componentes React
+## 2. Requerimientos del Encargo y Cumplimiento
 
+De acuerdo con las instrucciones de la EFT y las indicaciones de la sesión sincrónica del docente:
+
+1. **Estructura HTML, CSS y Bootstrap 5:**
+   - Maquetación con etiquetas semánticas (`<header>`, `<nav>`, `<main>`, `<section>`, `<footer>`).
+   - Sistema de grillas responsivo de Bootstrap 5 combinado con estilos propios para la estética gamer.
+   - Navegación fluida y adaptabilidad completa para dispositivos móviles, tablets y pantallas de escritorio.
+
+2. **Manipulación Dinámica del DOM con React:**
+   - El catálogo de videojuegos se renderiza dinámicamente mediante el método `.map()`, asignando keys únicas a cada elemento para optimizar la reconciliación del Virtual DOM.
+   - Filtrado en tiempo real por categorías (Todos, Aventura y Acción, Rol, Plataformas, Deportes, Survival Horror) a través de un estado controlado con `useState`.
+   - Alternancia de vista en cuadrícula (grid) y lista (list).
+
+3. **Consumo Asíncrono de Datos:**
+   - La información del catálogo de productos se consume de forma asíncrona mediante `fetch` dentro de un hook `useEffect` en `productService.js`.
+   - El servicio intenta primero consultar la API REST local (`http://localhost:3000/api/productos`) y, en caso de que el backend no esté activo, conmuta de forma automática y transparente a los datos estáticos locales (`/data/productos.json`).
+   - Incluye spinner de carga condicional y mensaje de reintento ante posibles errores de conexión.
+
+4. **Flujo de Datos y Modularidad:**
+   - **Datos hacia abajo (Data Down):** El componente raíz `App.jsx` distribuye el catálogo, filtros y estado del carrito a los componentes secundarios mediante `props`.
+   - **Eventos hacia arriba (Events Up):** Las acciones del usuario (agregar juego, cambiar categoría, actualizar unidades) se notifican mediante callbacks hacia el estado central.
+
+5. **Formulario de Contacto con Validación:**
+   - Campos controlados con `useState` para nombre, correo electrónico y mensaje.
+   - Validación antes del envío para evitar campos en blanco o correos con formato inválido.
+   - Notificación de confirmación no invasiva mediante componentes de Bootstrap, sin recurrir a alertas bloqueantes del navegador (`alert()`).
+
+6. **Carrito de Compras y Persistencia:**
+   - Carrito interactivo que calcula subtotales, totales en pesos chilenos ($ CLP) y cantidades en tiempo real.
+   - Notificaciones contextuales flotantes (Toast) al añadir productos.
+   - Persistencia de los datos en `localStorage` para conservar la compra si el usuario recarga la página.
+
+7. **Uso de Vite vs. Babel Standalone (Estándar Profesional):**
+   - El proyecto prescinde del uso de librerías CDN y compiladores pesados en el navegador (Babel Standalone). Todas las dependencias se gestionan localmente con `npm` y se compilan a producción con Vite en una carpeta `dist/`, asegurando un rendimiento óptimo.
+
+---
+
+## 3. Estructura del Proyecto
+
+```text
+Carolina_Delgado_PFY2201_EFT/
+├── backend/                       # Servidor API REST con Express (opcional)
+│   ├── data/
+│   │   └── productos.json         # Catálogo de videojuegos servido vía API
+│   ├── app.js                     # Configuración de Express, CORS y endpoint /api/productos
+│   └── package.json               # Dependencias del backend
+├── docs/                          # Documentación y capturas de evidencia
+│   ├── screenshots/
+│   └── screenshots_s8/
+├── public/                        # Recursos estáticos
+│   ├── data/
+│   │   └── productos.json         # Respaldo estático para fallback y GitHub Pages
+│   ├── img/                       # Portadas e iconografía gamer
+│   └── icons.svg                  # Sprites SVG
+├── src/
+│   ├── components/                # Componentes modulares de React
+│   │   ├── Carousel.jsx           # Carrusel accesible con pausa/reanudación y desenfoque
+│   │   ├── OffersBanner.jsx       # Banner de ofertas semanales con toggle interactivo
+│   │   ├── ProductList.jsx        # Catálogo, buscador en tiempo real, nav-pills y selector de vista
+│   │   ├── Services.jsx           # Sección de beneficios y garantías gamer
+│   │   ├── ContactForm.jsx        # Formulario de contacto con validación y alertas
+│   │   ├── Header.jsx             # Barra de navegación, búsqueda y carrito desplegable
+│   │   ├── ProductDetailModal.jsx # Modal con especificaciones y ficha técnica
+│   │   ├── ToastNotification.jsx  # Alerta contextual flotante temporal
+│   │   ├── Footer.jsx             # Pie de página institucional
+│   │   └── ScrollToTop.jsx        # Botón flotante para regresar al inicio
+│   ├── services/
+│   │   └── productService.js      # Servicio asíncrono (API Express + Fallback local)
+│   ├── data.js                    # Dataset de videojuegos
+│   ├── App.css                    # Estilos visuales del proyecto y tema gamer
+│   ├── App.jsx                    # Componente raíz y orquestador del estado
+│   ├── index.css                  # Variables CSS globales
+│   └── main.jsx                   # Montaje de React 19 y Bootstrap
+├── eslint.config.js               # Configuración de linter
+├── index.html                     # Archivo HTML base
+├── package.json                   # Dependencias y scripts de Vite
+└── vite.config.js                 # Configuración del empaquetador
 ```
-src/
-├── components/
-│   ├── ContactForm.jsx          # Formulario de soporte con validaciones
-│   ├── Footer.jsx               # Pie de página con información institucional
-│   ├── Header.jsx               # Barra de navegación, buscador y carrito flotante
-│   ├── HeroBanner.jsx           # Banner principal y títulos destacados
-│   ├── ProductDetailModal.jsx   # Ventana modal de especificaciones técnicas
-│   ├── ProductList.jsx          # Catálogo, selector de vista y filtros
-│   ├── ScrollToTop.jsx          # Botón flotante para regresar arriba
-│   └── ToastNotification.jsx   # Notificación temporal al agregar al carrito
-├── services/
-│   └── productService.js       # Servicio desacoplado para consumo asíncrono (fetch)
-├── App.css                      # Estilos de componentes, carrito flotante y estética gamer
-├── App.jsx                      # Componente raíz y orquestador del estado global
-├── index.css                    # Variables CSS, paleta de colores y estilos base
-└── main.jsx                     # Punto de entrada de React con Bootstrap 5
-```
 
 ---
 
-## ⚙️ 4. Instalación y Ejecución Local
+## 4. Instrucciones de Instalación y Ejecución
 
 ### Prerrequisitos
-- **Node.js** (versión 18 o superior recomendada, testeado en v24)
-- **npm** (versión 9 o superior)
+- Node.js versión 18 o superior instalada.
+- npm (incluido con Node.js).
 
-### Pasos de Instalación:
+### Paso 1: Clonar el Repositorio
+```bash
+git clone https://github.com/Lybern/Carolina_Delgado_PFY2201_EFT.git
+cd Carolina_Delgado_PFY2201_EFT
+```
 
-1. **Clonar el repositorio:**
-   ```bash
-   git clone https://github.com/Lybern/Carolina_Delgado_PFY2201_EFT.git
-   cd Carolina_Delgado_PFY2201_EFT
-   ```
-
-2. **Instalar dependencias locales:**
+### Paso 2: Ejecutar el Frontend
+1. Instalar dependencias del proyecto:
    ```bash
    npm install
    ```
-
-3. **Iniciar servidor de desarrollo:**
+2. Iniciar el servidor de desarrollo:
    ```bash
    npm run dev
    ```
-   *El sitio estará disponible en `http://localhost:5173`.*
+3. Abrir en el navegador:
+   `http://localhost:5173`
 
-4. **Generar compilación optimizada para producción:**
-   ```bash
-   npm run build
-   ```
-   *Genera los archivos estáticos en la carpeta `dist/` listos para desplegar.*
+*(Nota: La aplicación funciona de manera autónoma consumiendo `./data/productos.json` si no se inicia el backend).*
 
-5. **Previsualizar la compilación de producción:**
+### Paso 3: Ejecutar el Backend (Opcional)
+Si deseas levantar la API REST de Express:
+1. Abrir una segunda terminal e ingresar a la carpeta `backend`:
    ```bash
-   npm run preview
+   cd backend
+   npm install
+   npm start
    ```
+2. La API quedará escuchando en `http://localhost:3000/api/productos`. El frontend detectará automáticamente el servidor y consumirá los datos desde allí.
+
+### Paso 4: Generar Compilación de Producción
+Para verificar que el código compila limpiamente para despliegue:
+```bash
+npm run build
+```
+Los archivos optimizados se generarán dentro de la carpeta `dist/`.
 
 ---
 
-## 📋 5. Cumplimiento de la Pauta de Evaluación (EFT Duoc UC)
+## 5. Control de Versiones
 
-| Criterio Evaluado | Implementación en EriGamesStore |
-|---|---|
-| **Estructura y Tecnologías** | Proyecto SPA construido con React y Vite; Bootstrap 5.3 y Bootstrap Icons instalados como dependencias locales. |
-| **Diseño y Maquetación** | Interfaz responsiva *Dark Gamer* adaptada para escritorio y móvil con grillas de Bootstrap y CSS3. |
-| **Manipulación del DOM y Reactividad** | Renderizado declarativo con `useState` y mapeo `.map()` de tarjetas y elementos del carrito, sin manipulación directa manual. |
-| **Flujo de Datos (Props y Callbacks)** | Comunicación unidireccional de datos (props hacia componentes hijos) y funciones callback para mutar el estado global en `App.jsx`. |
-| **Consumo Asíncrono de Datos** | Módulo `productService.js` con llamada `fetch` y `useEffect`, gestión de Spinner de carga y manejo de fallos. |
-| **Validación de Formularios** | `ContactForm` valida campos vacíos y formato de correo electrónico antes de emitir feedback. |
-| **Buenas Prácticas e Industria** | Código modularizado, comentarios JSDoc, persistencia en `localStorage`, `README.md` exhaustivo y exclusión de artefactos innecesarios en `.gitignore`. |
+El desarrollo del proyecto se gestionó mediante Git y GitHub siguiendo buenas prácticas de control de versiones, realizando commits atómicos y descriptivos que documentan progresivamente la evolución del código:
 
----
-**Desarrollado por Carolina Delgado — Duoc UC 2026**
+- `feat: refactorizar EriGamesStore a SPA modular en React con Vite y carrito reactivo`
+- `feat: configurar servidor backend Express y endpoints REST para productos`
+- `feat: actualizar productService con consumo de API REST y fallback offline`
+- `feat: incorporar componentes Carousel, OffersBanner y Services con estilos cinematicos`
+- `chore: agregar configuracion de ESLint y documentacion de soporte`
