@@ -4,10 +4,98 @@
 
 /* Navbar y Header */
 .navbar-custom {
-  background-color: rgba(10, 15, 29, 0.95);
-  backdrop-filter: blur(12px);
+  background-color: rgba(9, 13, 22, 0.95);
+  backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border-subtle);
   transition: all 0.3s ease;
+}
+
+/* Enlaces de navegación interactivos con eventos mouse y hover */
+.nav-link-gamer {
+  color: #cbd5e1 !important;
+  font-weight: 600;
+  padding: 8px 14px !important;
+  border-radius: 10px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+  border: 1px solid transparent;
+}
+
+.nav-link-gamer:hover,
+.nav-link-gamer:focus {
+  color: var(--accent-cyan) !important;
+  background: rgba(0, 240, 255, 0.12);
+  border-color: rgba(0, 240, 255, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 240, 255, 0.2);
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
+}
+
+.nav-link-gamer:hover i {
+  transform: scale(1.18);
+  transition: transform 0.2s ease;
+}
+
+/* Menú desplegable gamer (Categorías) */
+.dropdown-menu-gamer {
+  background: rgba(13, 20, 36, 0.96) !important;
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 240, 255, 0.35) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 14px 35px -5px rgba(0, 0, 0, 0.85), 0 0 20px rgba(0, 240, 255, 0.2) !important;
+  padding: 8px !important;
+  min-width: 230px;
+  top: 100%;
+  left: 0;
+  z-index: 1070;
+  margin-top: 6px !important;
+}
+
+.dropdown-item-gamer {
+  color: #e2e8f0 !important;
+  padding: 10px 14px !important;
+  border-radius: 8px !important;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+}
+
+.dropdown-item-gamer:hover {
+  background: linear-gradient(90deg, rgba(59, 130, 246, 0.3), rgba(0, 240, 255, 0.25)) !important;
+  color: var(--accent-cyan) !important;
+  transform: translateX(5px);
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
+}
+
+.dropdown-item-gamer.active {
+  background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan)) !important;
+  color: #070b14 !important;
+  font-weight: 700;
+}
+
+.animate-fade-in {
+  animation: navFadeIn 0.2s ease-out;
+}
+
+@keyframes navFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -91,31 +179,36 @@
 .carousel-caption {
   position: absolute;
   bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: auto;
-  min-width: 300px;
-  max-width: 85%;
-  background: rgba(11, 17, 32, 0.88);
-  backdrop-filter: blur(12px);
+  left: 0 !important;
+  right: 0 !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  transform: none !important;
+  width: 90% !important;
+  max-width: 620px !important;
+  text-align: center !important;
+  background: rgba(11, 17, 32, 0.92) !important;
+  backdrop-filter: blur(14px);
   border-radius: 14px;
-  padding: 10px 22px;
-  border: 1px solid rgba(0, 240, 255, 0.4);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), 0 0 15px rgba(0, 240, 255, 0.15);
-  z-index: 4;
+  padding: 12px 24px;
+  border: 1px solid rgba(0, 240, 255, 0.45);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 240, 255, 0.2);
+  z-index: 10;
 }
 
 .carousel-caption h2 {
   color: var(--accent-cyan);
   font-weight: 700;
   font-size: 1.25rem;
-  margin-bottom: 2px;
+  margin-bottom: 4px;
+  text-align: center;
 }
 
 .carousel-caption p {
   color: #e2e8f0;
   font-size: 0.88rem;
   margin-bottom: 0;
+  text-align: center;
 }
 
 /* Tarjeta estilizada del Banner de Ofertas */

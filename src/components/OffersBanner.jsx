@@ -7,7 +7,7 @@ export const OffersBanner = () => {
   const [mostrarOfertas, setMostrarOfertas] = useState(false);
 
   return (
-    <section className="py-4 my-2">
+    <section id="destacados" className="py-4 my-2" aria-label="Promociones y ofertas">
       <div className="container">
         <div className="card offers-card border-0 p-4 p-md-4 text-light">
           <div className="row align-items-center justify-content-between g-3">

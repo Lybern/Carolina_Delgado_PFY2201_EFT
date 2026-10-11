@@ -73,6 +73,9 @@ function App() {
   // Estado para el buscador reactivo en tiempo real
   const [searchTerm, setSearchTerm] = useState('');
 
+  // Estado para el filtrado por categoría (conectado con Header y ProductList)
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('Todos');
+
   // Notificación flotante Toast al añadir producto
   const [toastProduct, setToastProduct] = useState(null);
 
@@ -180,6 +183,8 @@ function App() {
         setCountProducts={setCountProducts}
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
+        categoriaSeleccionada={categoriaSeleccionada}
+        setCategoriaSeleccionada={setCategoriaSeleccionada}
       />
 
       {/* 2. Contenido Principal */}
@@ -245,6 +250,8 @@ function App() {
             onAddProduct={onAddProduct}
             onVerProducto={setProductoSeleccionado}
             searchTerm={searchTerm}
+            categoriaSeleccionada={categoriaSeleccionada}
+            setCategoriaSeleccionada={setCategoriaSeleccionada}
           />
         )}
 

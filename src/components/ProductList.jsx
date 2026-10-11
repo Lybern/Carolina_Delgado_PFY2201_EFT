@@ -13,8 +13,12 @@ export const ProductList = ({
   onAddProduct,
   onVerProducto,
   searchTerm = '',
+  categoriaSeleccionada: categoriaProp,
+  setCategoriaSeleccionada: setCategoriaProp,
 }) => {
-  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('Todos');
+  const [categoriaInterna, setCategoriaInterna] = useState('Todos');
+  const categoriaSeleccionada = categoriaProp !== undefined ? categoriaProp : categoriaInterna;
+  const setCategoriaSeleccionada = setCategoriaProp !== undefined ? setCategoriaProp : setCategoriaInterna;
   const [vista, setVista] = useState('grid'); // 'grid' | 'list'
 
   const categorias = [

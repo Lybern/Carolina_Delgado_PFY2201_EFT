@@ -14,24 +14,47 @@ export const Header = ({
   setCountProducts,
   searchTerm = '',
   setSearchTerm = () => {},
+  categoriaSeleccionada = 'Todos',
+  setCategoriaSeleccionada = () => {},
 }) => {
   const [active, setActive] = useState(false);
+  const [dropdownCategorias, setDropdownCategorias] = useState(false);
   const cartRef = useRef(null);
+  const dropdownRef = useRef(null);
 
-  // Cerrar el carrito si se hace clic afuera
+  const listaCategorias = [
+    { label: 'Todos los Títulos', icon: 'bi-controller', value: 'Todos' },
+    { label: 'Aventura y Acción', icon: 'bi-compass', value: 'Aventura y Acción' },
+    { label: 'Rol (RPG)', icon: 'bi-shield-shaded', value: 'Rol (RPG)' },
+    { label: 'Plataformas', icon: 'bi-boxes', value: 'Plataformas' },
+    { label: 'Deportes', icon: 'bi-trophy', value: 'Deportes' },
+    { label: 'Survival Horror', icon: 'bi-radioactive', value: 'Survival Horror' },
+  ];
+
+  const handleSelectCategoria = (cat) => {
+    setCategoriaSeleccionada(cat);
+    setDropdownCategorias(false);
+    const section = document.getElementById('catalogo');
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  // Cerrar el carrito o dropdown si se hace clic afuera
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (cartRef.current && !cartRef.current.contains(event.target)) {
         setActive(false);
       }
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownCategorias(false);
+      }
     };
-    if (active) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [active]);
+  }, []);
 
   // Eliminar un producto individual del carrito
   const onDeleteProduct = (product) => {
@@ -104,24 +127,59 @@ export const Header = ({
 
           {/* Menú de navegación y controles */}
           <div className="collapse navbar-collapse" id="menuGamer">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3 gap-1">
               <li className="nav-item">
-                <a className="nav-link text-light fw-semibold" href="#inicio">
+                <a className="nav-link nav-link-gamer" href="#inicio">
                   <i className="bi bi-house-door me-1 text-primary"></i> Inicio
                 </a>
               </li>
-              <li className="nav-item">
-                <a className="nav-link text-light fw-semibold" href="#catalogo">
-                  <i className="bi bi-controller me-1 text-info"></i> Videojuegos
-                </a>
+
+              {/* Menú Desplegable de Categorías (Interactividad con Mouse Hover y Click) */}
+              <li
+                className="nav-item dropdown position-relative"
+                ref={dropdownRef}
+                onMouseEnter={() => setDropdownCategorias(true)}
+                onMouseLeave={() => setDropdownCategorias(false)}
+              >
+                <button
+                  type="button"
+                  className={`nav-link nav-link-gamer dropdown-toggle btn btn-link text-decoration-none border-0 ${dropdownCategorias ? 'active show text-info' : ''}`}
+                  onClick={() => setDropdownCategorias(!dropdownCategorias)}
+                  aria-expanded={dropdownCategorias}
+                >
+                  <i className="bi bi-grid-3x3-gap me-1 text-info"></i> Categorías
+                </button>
+
+                {dropdownCategorias && (
+                  <ul className="dropdown-menu dropdown-menu-gamer show position-absolute animate-fade-in shadow-lg">
+                    {listaCategorias.map((item) => (
+                      <li key={item.value}>
+                        <button
+                          type="button"
+                          className={`dropdown-item dropdown-item-gamer ${categoriaSeleccionada === item.value ? 'active' : ''}`}
+                          onClick={() => handleSelectCategoria(item.value)}
+                        >
+                          <i className={`bi ${item.icon} text-info`}></i>
+                          <span>{item.label}</span>
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </li>
+
               <li className="nav-item">
-                <a className="nav-link text-light fw-semibold" href="#destacados">
+                <a className="nav-link nav-link-gamer" href="#destacados">
                   <i className="bi bi-fire me-1 text-warning"></i> Ofertas
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link text-light fw-semibold" href="#contacto">
+                <a className="nav-link nav-link-gamer" href="#servicios">
+                  <i className="bi bi-shield-check me-1 text-info"></i> Beneficios
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link nav-link-gamer" href="#contacto">
                   <i className="bi bi-envelope me-1 text-success"></i> Contacto
                 </a>
               </li>
