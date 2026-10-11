@@ -1,0 +1,17 @@
+{
+  "name": "backend_eft_erigamesstore",
+  "version": "1.0.0",
+  "description": "Servidor backend Express API para la Evaluación Final Transversal (EFT)",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": ["express", "duoc", "eft", "api", "gamer"],
+  "author": "Carolina Delgado",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  }
+}
